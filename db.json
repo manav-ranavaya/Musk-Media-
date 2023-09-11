@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": 1693306405998,
+      "fullName": "Manav",
+      "email": "manavmaher@14gmail.com",
+      "password": "55555555"
+    },
+    {
+      "id": 1693456669816,
+      "fullName": "may",
+      "email": "yoonyoon.mu@gmail.com",
+      "password": "12345678"
+    },
+    {
+      "id": 1693566590016,
+      "fullName": "Manav",
+      "email": "manavmaher@gmail.com",
+      "password": "12345678"
+    },
+    {
+      "id": 1693973959092,
+      "fullName": "dev",
+      "email": "dev@123",
+      "password": "88888888"
+    }
+  ],
+  "gameDev": [
+    {
+      "id": "66ab",
+      "name": "MANAV",
+      "activatedOn": "9/10/2023, 11:36:11 PM",
+      "status": "INACTIVE",
+      "devName": "MANAV",
+      "games": 9,
+      "gamePlays": 8999,
+      "rewardsWon": 1999
+    },
+    {
+      "id": "aac2",
+      "name": "OKKOKOK",
+      "activatedOn": "9/10/2023, 11:46:44 PM",
+      "status": "ACTIVE",
+      "devName": "OKKOKOK",
+      "games": 9,
+      "gamePlays": 8999,
+      "rewardsWon": 1999
+    },
+    {
+      "id": "afef",
+      "devName": "LOOOL",
+      "activatedOn": "9/10/2023, 11:48:22 PM",
+      "games": 9,
+      "gamePlays": 8999,
+      "rewardsWon": 1999,
+      "status": "INACTIVE",
+      "name": "LOOOL"
+    }
+  ]
+}

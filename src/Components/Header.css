@@ -1,0 +1,99 @@
+.custom-sidebar {
+    width: 240px;
+    background-color: #18181c;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    text-align: left;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+
+
+}
+
+.header-logo {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(190, 190, 190, 0.358);
+
+}
+
+.header-title {
+    line-height: 28px;
+    font-size: 16px;
+}
+
+
+.square {
+    width: 13%;
+    height: 29px;
+    margin-left: 25px;
+    margin-right: 10px;
+    background-color: rgba(228, 223, 223, 0.939);
+    border-radius: 5px;
+
+
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-items a {
+    color: rgb(149, 149, 149);
+    text-decoration: none;
+    padding: 10px 0;
+    padding-left: 30px;
+    font-size: 15px;
+    margin-bottom: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    border-left: 3px solid transparent;
+
+}
+
+.menu-items a:hover {
+    background-color: #ffffff24;
+    color: white;
+}
+
+.menu-items a[aria-current="page"] {
+    background-color: #ffffff24;
+    color: white;
+    border-left-color: rgb(255, 255, 255);
+
+}
+
+
+
+.menu-items :hover {
+    background-color: #ffffff24;
+    color: white;
+}
+
+.navbar-expand {
+
+    justify-content: end !important;
+    padding-right: 20px !important;
+    color: rgb(103, 103, 207);
+    font-size: 15px;
+    padding-top: 17px !important;
+    background-color: white !important;
+    padding-bottom: 12px !important;
+}
+
+
+.main-content {
+    margin-left: 240px;
+    margin-top: 5px;
+    padding: 20px;
+}
