@@ -27,34 +27,40 @@
   ],
   "gameDev": [
     {
-      "id": "66ab",
-      "name": "MANAV",
-      "activatedOn": "9/10/2023, 11:36:11 PM",
-      "status": "INACTIVE",
-      "devName": "MANAV",
-      "games": 9,
-      "gamePlays": 8999,
-      "rewardsWon": 1999
-    },
-    {
-      "id": "aac2",
-      "name": "OKKOKOK",
-      "activatedOn": "9/10/2023, 11:46:44 PM",
+      "id": "bf98",
+      "devName": "RIOT GAMEz",
+      "activatedOn": "9/11/2023, 6:43:14 PM",
       "status": "ACTIVE",
-      "devName": "OKKOKOK",
       "games": 9,
       "gamePlays": 8999,
       "rewardsWon": 1999
     },
     {
-      "id": "afef",
-      "devName": "LOOOL",
-      "activatedOn": "9/10/2023, 11:48:22 PM",
+      "id": "45fd",
+      "devName": "ACTIVISION ",
+      "activatedOn": "9/11/2023, 6:28:40 PM",
+      "status": "INACTIVE",
       "games": 9,
       "gamePlays": 8999,
-      "rewardsWon": 1999,
-      "status": "INACTIVE",
-      "name": "LOOOL"
+      "rewardsWon": 1999
+    },
+    {
+      "id": "fe3a",
+      "devName": "SEGA",
+      "activatedOn": "9/11/2023, 6:27:52 PM",
+      "status": "ACTIVE",
+      "games": 9,
+      "gamePlays": 8999,
+      "rewardsWon": 1999
+    },
+    {
+      "id": "5eb4",
+      "devName": "Dveloper",
+      "activatedOn": "9/11/2023, 6:28:30 PM",
+      "status": "IN DRAFT",
+      "games": 9,
+      "gamePlays": 8999,
+      "rewardsWon": 1999
     }
   ]
 }

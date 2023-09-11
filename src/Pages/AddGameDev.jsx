@@ -1,10 +1,21 @@
-import { Card, Row, Col, Button, Offcanvas, Form } from "react-bootstrap";
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+  Card,
+  Row,
+  Col,
+  Button,
+  Offcanvas,
+  Form,
+  Modal,
+} from "react-bootstrap";
 import Header from "../Components/Header";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function getStatusButtonColor(status) {
   switch (status) {
@@ -22,23 +33,54 @@ function getStatusButtonColor(status) {
 const AddGameDev = () => {
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState({
     id: "-",
-    name: "-",
+    devName: "-",
     activatedOn: "-",
     status: "IN DRAFT",
   });
   const { id } = useParams();
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const handleShow = () => {
+    setIsEditing(true);
+    setName(data.devName);
+    setShow(true);
+  };
 
   const generateUniqueId = () => {
     const fullUUID = uuidv4();
     return fullUUID.slice(0, 4);
   };
 
-  const handleAddUser = () => {
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const openConfirmationModal = () => setShowConfirmationModal(true);
+  const closeConfirmationModal = () => setShowConfirmationModal(false);
+
+  const handleDeactivate = () => {
+    if (data.status === "ACTIVE") {
+      openConfirmationModal();
+    } else {
+      handleUpdateUserStatus(data.id);
+      toast.success("Developer activated successfully", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  };
+
+  const handleConfirmDeactivation = () => {
+    closeConfirmationModal();
+    handleUpdateUserStatus(data.id);
+  };
+
+  const handleCancelDeactivation = () => {
+    closeConfirmationModal();
+  };
+
+  const handleAddUser = (userId) => {
     if (name.trim() !== "") {
       const newId = generateUniqueId();
       const activatedOn = new Date().toLocaleString();
@@ -63,7 +105,7 @@ const AddGameDev = () => {
       };
 
       axios
-        .post("http://localhost:4000/GameDev", newDeveloper)
+        .put(`http://localhost:4000/GameDev/${userId}`, newDeveloper)
         .then((response) => {
           console.log("New developer added:", response.data);
         })
@@ -100,12 +142,52 @@ const AddGameDev = () => {
 
   const handleSaveChanges = () => {
     if (name.trim() !== "") {
-      const newData = {
-        ...data,
-        name: name,
-        status: "IN DRAFT",
-      };
-      setData(newData);
+      const newId = generateUniqueId();
+      const activatedOn = new Date().toLocaleString();
+
+      if (data.status === "IN DRAFT" || data.id === "-") {
+        const newData = {
+          ...data,
+          id: newId,
+          devName: name,
+          status: "IN DRAFT",
+          activatedOn: activatedOn,
+        };
+        setData(newData);
+
+        const InDraftDeveloper = {
+          ...newData,
+          activatedOn: activatedOn,
+          games: 9,
+          gamePlays: 8999,
+          rewardsWon: 1999,
+        };
+
+        axios
+          .post("http://localhost:4000/GameDev", InDraftDeveloper)
+          .then((response) => {
+            console.log("New developer added:", response.data);
+          })
+          .catch((error) => {
+            console.error("Error adding new developer:", error);
+          });
+      } else {
+        const updatedUser = {
+          ...data,
+          devName: name,
+          activatedOn: activatedOn,
+        };
+
+        axios
+          .put(`http://localhost:4000/GameDev/${data.id}`, updatedUser)
+          .then((response) => {
+            console.log("User details updated:", response.data);
+            setData(updatedUser);
+          })
+          .catch((error) => {
+            console.error("Error updating user details:", error);
+          });
+      }
 
       handleClose();
     }
@@ -132,6 +214,7 @@ const AddGameDev = () => {
     <>
       <Header />
       <main className="main-content">
+        <ToastContainer />
         <Row>
           <div className="d-flex link-btn">
             <Button
@@ -145,10 +228,9 @@ const AddGameDev = () => {
                 ) {
                   handleAddUser();
                 } else {
-                  handleUpdateUserStatus(data.id);
+                  handleDeactivate();
                 }
               }}
-              disabled={name.trim() === "" && data.status === "IN DRAFT"}
             >
               {data.status === "ACTIVE" ? "DEACTIVATE" : "ACTIVATE"}
             </Button>
@@ -175,7 +257,7 @@ const AddGameDev = () => {
                   </Col>
                   <Col className="text-right">
                     <div className="mb-2">{data.id}</div>
-                    <div className="mb-2">{data.name}</div>
+                    <div className="mb-2">{data.devName}</div>
                     <div className="mb-2">{data.activatedOn}</div>
                     <div className="mb-2">
                       <button
@@ -235,12 +317,29 @@ const AddGameDev = () => {
               <Form.Control
                 className="addev-text"
                 type="text"
-                value={name}
+                value={isEditing ? name : data.devName}
                 onChange={(e) => setName(e.target.value)}
+                disabled={!isEditing}
               />
             </div>
           </Offcanvas.Body>
         </Offcanvas>
+        <Modal show={showConfirmationModal} onHide={closeConfirmationModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Deactivation</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to deactivate this developer?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCancelDeactivation}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleConfirmDeactivation}>
+              Deactivate
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </main>
     </>
   );
